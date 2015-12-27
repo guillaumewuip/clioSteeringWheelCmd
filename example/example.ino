@@ -45,9 +45,9 @@ void loop() {
     }
 
     uint8_t wheel = controller.getWheel();
-    if (wheel == 2) {
+    if (wheel == WHEEL_UP) {
         Serial.println(F("Wheel UP"));
-    } else if (wheel == 1) {
+    } else if (wheel == WHEEL_DOWN) {
         Serial.println(F("Wheel DOWN"));
     }
 
