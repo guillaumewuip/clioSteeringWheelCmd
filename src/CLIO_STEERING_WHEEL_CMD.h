@@ -76,6 +76,10 @@ class WHEEL_CMD {
          */
         WHEEL_CMD(uint8_t *inputs, uint8_t *outputs);
 
+        void setIntervalPress(int interval);
+
+        void setIntervalHold(int interval);
+
         /**
          * update()
          *
@@ -132,6 +136,8 @@ class WHEEL_CMD {
         uint8_t getWheel();
 
     private:
+        int         _intervalPress;
+        int         _intervalHold;
         uint8_t     *_inputs;
         uint8_t     *_outputs;
         uint16_t    _buttons[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};

@@ -8,6 +8,17 @@ uint8_t wheel_indexes[NB_WHEEL] = {3, 4, 5};
 WHEEL_CMD::WHEEL_CMD(uint8_t *inputs, uint8_t *outputs) {
     _inputs = inputs;
     _outputs = outputs;
+
+    _intervalPress = INTERVAL_PRESS;
+    _intervalHold = INTERVAL_HOLD;
+};
+
+void WHEEL_CMD::setIntervalPress(int interval) {
+    _intervalPress = interval;
+};
+
+void WHEEL_CMD::setIntervalHold(int interval) {
+    _intervalHold = interval;
 };
 
 void WHEEL_CMD::update() {
@@ -52,9 +63,9 @@ uint8_t WHEEL_CMD::getButton(uint8_t button) {
 
     uint8_t result;
 
-    if (_buttons[button] == INTERVAL_HOLD) {
+    if (_buttons[button] == _intervalHold) {
         return HOLD;
-    } else if (_buttons[button] == INTERVAL_PRESS) {
+    } else if (_buttons[button] == _intervalPress) {
         return PRESSED;
     } else {
         return NO_NEWS;
