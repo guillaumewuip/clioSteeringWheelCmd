@@ -45,7 +45,8 @@ void WHEEL_CMD::update() {
 
     for (uint8_t i=0; i < NB_BUTTONS; i++) {
         //do not overflow uint16_t number
-        keys[i] ? (_buttons[i] < 0xFFFF && _buttons[i]++) : _buttons[i] = 0;
+        _states[i] = keys[i];
+        keys[i] && _buttons[i] < 0x7fff && _buttons[i]++;
     }
 
     //Serial.println();
@@ -63,14 +64,19 @@ uint8_t WHEEL_CMD::getButton(uint8_t button) {
 
     uint8_t result;
 
-    if (_buttons[button] == _intervalHold) {
-        return HOLD;
-    } else if (_buttons[button] == _intervalPress) {
-        return PRESSED;
-    } else {
-        return NO_NEWS;
-    }
+    if (button != 3 && button != 4 && button != 5) {
 
+        if (!_states[button] && _buttons[button] > _intervalPress
+                && _buttons[button] < _intervalHold) {
+            _buttons[button] = 0;
+            return PRESSED;
+        } else if (_buttons[button] == _intervalHold) {
+            _buttons[button] = -_intervalPress*7;
+            return HOLD;
+        } else {
+            return NO_NEWS;
+        }
+    }
 
 };
 
@@ -85,10 +91,13 @@ uint8_t WHEEL_CMD::getWheel() {
     uint8_t tmp;
     if (_buttons[3] > 0) {
         tmp = 0;
+        _buttons[3] = 0;
     } else if (_buttons[4] > 0) {
         tmp = 1;
+        _buttons[4] = 0;
     } else {
         tmp = 2;
+        _buttons[5] = 0;
     }
 
     //if it has change since last time

@@ -25,7 +25,7 @@
 #define BTN_VOL_UP        7
 #define BTN_VOL_DOWN      8
 
-#define INTERVAL_PRESS    70
+#define INTERVAL_PRESS    40
 #define INTERVAL_HOLD     750
 
 class WHEEL_CMD {
@@ -140,7 +140,8 @@ class WHEEL_CMD {
         int         _intervalHold;
         uint8_t     *_inputs;
         uint8_t     *_outputs;
-        uint16_t    _buttons[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int16_t    _buttons[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        bool        _states[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         uint8_t     _lastWheel;
         uint8_t     _currentWheel = 3;
 
