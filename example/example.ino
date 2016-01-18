@@ -3,7 +3,7 @@
 #include <CLIO_STEERING_WHEEL_CMD.h>
 
 uint8_t  inputs[3]  = {0, 1, 2}; //analog A0, A1, A2
-uint8_t  outputs[3] = {7, 6, 5}; //digital D7, D6, D5
+uint8_t  outputs[3] = {10, 9, 8}; //digital D7, D6, D5
 WHEEL_CMD controller(inputs, outputs);
 
 String buttons_str_test[9] = {
